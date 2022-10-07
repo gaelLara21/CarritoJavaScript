@@ -60,7 +60,9 @@ const agregarCurso = (e) => {
             <td> ${curso.nombre}</td>
             <td> ${curso.precio}</td>
             <td> ${curso.cantidad}</td>
-        
+            <td> 
+           <a href="#" class="borrar-curso" data-id="${curso.id}">x</a>
+            </td>
         `;
             row.innerHTML = cursoHTML;
             contenedorCarrito.appendChild(row)
@@ -70,10 +72,26 @@ const agregarCurso = (e) => {
     const vaciarCarrito=() => {
         contenedorCarrito.innerHTML = '';
     }
+
+    const eliminarCurso = (e) => {
+        e.preventDefault();
+        if (e.target.classList.contains('borrar-curso')){
+        let idCurso = e.target.getAttribute('data-id')
+        let carrito = ListadoCarrito.filter(cursoInCarrito => cursoInCarrito.id !== idCurso)
+        ListadoCarrito = [...carrito];
+        generaHTML();
+        }
+    }
+
+
     //e.target.classlist.contains('agregar-carrito')
-const cargarEventListener = ()=> {
+    const cargarEventListener = ()=> {
     //Agregar finción de carga de cursos al carrito
     listaCursos.addEventListener('click', agregarCurso);
+
+    contenedorCarrito.addEventListener('click',eliminarCurso);
+
+    vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
 }
 
 cargarEventListener();
