@@ -28,7 +28,25 @@ const agregarCurso = (e) => {
 
     //Función agregar carrito
     const agregarCarrito = curso =>{
-        ListadoCarrito = [...ListadoCarrito, curso]
+       // console.log("curso a agregar")
+       //console.log(curso.id)
+       // console.log("listado de crusos")
+     //  ListadoCarrito.forEach(curso => console.log(curso.id));
+     if (ListadoCarrito.some(cursoIntCarrito => cursoIntCarrito.id == curso.id)){
+     let carrito = ListadoCarrito.map( cursoIntCarrito => {
+         if (cursoIntCarrito.id == curso.id) {
+             cursoIntCarrito.cantidad++;
+             return cursoIntCarrito; 
+         } else {
+             return cursoIntCarrito;
+         }
+     })
+        ListadoCarrito = [...carrito];
+    
+      }  else {
+          ListadoCarrito =  [...ListadoCarrito, curso];
+        }
+
         console.log(ListadoCarrito);
         generaHTML();
     }
