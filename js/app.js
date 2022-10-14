@@ -53,6 +53,7 @@ const agregarCurso = (e) => {
 
     const generaHTML = ()=> {
         vaciarCarrito();
+        localStorage.setItem('carrito', JSON.stringify(ListadoCarrito));
         ListadoCarrito.forEach( curso =>{
             const row = document.createElement('tr');
             const cursoHTML =` 
@@ -92,6 +93,12 @@ const agregarCurso = (e) => {
     contenedorCarrito.addEventListener('click',eliminarCurso);
 
     vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
+}
+
+const carritoInStorage = localStorage.getItem('carrito')
+if(carritoInStorage){
+    ListadoCarrito =JSON.parse(carritoInStorage);
+    generaHTML();
 }
 
 cargarEventListener();
